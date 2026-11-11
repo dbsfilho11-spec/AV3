@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#80563b">
+  <meta name="description" content="Jogue VerdeVivo e ajude a recuperar uma floresta.">
+  <title>Jogo | VerdeVivo</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <main class="game-screen">
+    <div class="world-viewport" id="worldViewport" aria-label="Área de jogo. Toque ou clique no mapa para andar.">
+      <div class="world-scene" id="worldScene">
+        <div class="dead-tree-object" data-x="160" data-y="425" data-radius="19" data-max-growth="2" data-max-size="0.75" data-dead="assets/Arvore destruida 1.png" data-alive="assets/Arvore 1.png" aria-hidden="true">
+          <div class="regrowth-patch"></div>
+          <img class="dead-tree-sprite" src="assets/Arvore destruida 1.png" alt="">
+        </div>
+        <div class="dead-tree-object fallen-tree" data-x="510" data-y="258" data-radius="22" data-max-growth="4" data-max-size="1.1" data-dead="assets/Arvore destruida 2.png" data-alive="assets/Arvore 2.png" aria-hidden="true">
+          <div class="regrowth-patch"></div>
+          <img class="dead-tree-sprite" src="assets/Arvore destruida 2.png" alt="">
+        </div>
+        <div class="dead-tree-object" data-x="305" data-y="620" data-radius="19" data-max-growth="3" data-max-size="0.9" data-dead="assets/Arvore destruida 1.png" data-alive="assets/Arvore 2.png" aria-hidden="true">
+          <div class="regrowth-patch"></div>
+          <img class="dead-tree-sprite" src="assets/Arvore destruida 1.png" alt="">
+        </div>
+        <div class="dead-tree-object fallen-tree" data-x="735" data-y="375" data-radius="22" data-max-growth="6" data-max-size="1.5" data-dead="assets/Arvore destruida 2.png" data-alive="assets/Arvore 1.png" aria-hidden="true">
+          <div class="regrowth-patch"></div>
+          <img class="dead-tree-sprite" src="assets/Arvore destruida 2.png" alt="">
+        </div>
+        <div class="dead-tree-object" data-x="1090" data-y="515" data-radius="19" data-max-growth="5" data-max-size="1.3" data-dead="assets/Arvore destruida 1.png" data-alive="assets/Arvore 1.png" aria-hidden="true">
+          <div class="regrowth-patch"></div>
+          <img class="dead-tree-sprite" src="assets/Arvore destruida 1.png" alt="">
+        </div>
+        <div class="dead-tree-object fallen-tree" data-x="385" data-y="145" data-radius="22" data-max-growth="3" data-max-size="1" data-dead="assets/Arvore destruida 2.png" data-alive="assets/Arvore 2.png" aria-hidden="true">
+          <div class="regrowth-patch"></div>
+          <img class="dead-tree-sprite" src="assets/Arvore destruida 2.png" alt="">
+        </div>
+        <div class="tower-object" data-x="900" data-y="535" data-radius="39" aria-hidden="true">
+          <img class="tower-sprite" src="assets/Torre.png" alt="">
+        </div>
+        <img class="pond" id="pond" src="assets/Lago.png" alt="" aria-hidden="true">
+        <div class="player-object" id="playerObject" aria-hidden="true">
+          <div class="player-hitbox"></div>
+          <img class="player-model" src="assets/Personagem.png" alt="">
+          <img class="watering-can" id="wateringCan" src="assets/regador.png" alt="">
+          <img class="crowbar" id="crowbar" src="assets/Crowbar.png" alt="" draggable="false">
+        </div>
+      </div>
+    </div>
+
+    <section class="hud" aria-label="Recursos">
+      <div class="resource">🪙 <span id="money">0</span></div>
+      <div class="resource">🌱 <span id="seeds">0</span></div>
+      <div class="resource">💧 <span id="water">0</span>/<span id="capacity">0</span></div>
+      <div class="resource day-night" id="dayNight" aria-label="Dia; faltam 30 segundos para a próxima fase"><span id="phaseName">☀️ Dia</span> · <span id="phaseTime">30</span>s</div>
+      <div class="forest-progress">
+        <div class="forest-progress-label">
+          <span>🌿 Reflorestamento</span>
+          <span><strong id="forestPercent">0</strong>% · meta <span id="forestGoal">60</span>%</span>
+        </div>
+        <progress id="forestProgress" max="100" value="0" aria-label="Progresso do reflorestamento"></progress>
+      </div>
+    </section>
+
+    <button class="settings-toggle" id="openSettings" type="button" aria-label="Abrir configurações" title="Configurações">⚙</button>
+    <p class="game-notice" id="status" role="status" aria-live="polite"></p>
+
+    <dialog class="settings-dialog tutorial-dialog" id="tutorialDialog" aria-labelledby="tutorialTitle">
+      <div class="settings-header">
+        <h1 id="tutorialTitle">Como jogar</h1>
+      </div>
+      <p class="tutorial-intro">Recupere a floresta plantando e cuidando das árvores. O jogo fica pausado enquanto este tutorial estiver aberto.</p>
+      <ul class="tutorial-list">
+        <li><strong>Andar:</strong> use as setas ou WASD, ou clique/toque no mapa.</li>
+        <li><strong>Plantar:</strong> pressione P ou use “Plantar semente” nas configurações.</li>
+        <li><strong>Regar:</strong> aproxime-se de uma árvore e pressione G. Ela cresce durante a noite.</li>
+        <li><strong>Reflorestar:</strong> acompanhe a barra. A meta é 60% (10% no modo fácil); o crescimento parcial e o verde espalhado também contam.</li>
+        <li><strong>Encher o regador:</strong> vá até o lago e pressione R.</li>
+        <li><strong>Afastar bandidos:</strong> aproxime-se e pressione E. Veja a barra de vida: são necessários vários golpes; os derrotados ficam caídos até amanhecer.</li>
+        <li><strong>Configurações:</strong> ⚙ abre ações, loja, controles e o botão para voltar ao site.</li>
+      </ul>
+      <div class="tutorial-actions">
+        <button id="skipTutorialButton" type="button" class="secondary-button">Pular tutorial</button>
+        <button id="startTutorialButton" type="button">Começar a jogar</button>
+      </div>
+    </dialog>
+
+    <dialog class="settings-dialog" id="settingsDialog" aria-labelledby="settingsTitle">
+      <div class="settings-header">
+        <h1 id="settingsTitle">Configurações</h1>
+        <button class="icon-button" id="closeSettings" type="button" aria-label="Fechar configurações">✕</button>
+      </div>
+
+      <section class="settings-section">
+        <h2>Ações</h2>
+        <div class="settings-actions">
+          <button id="plantButton" type="button">🌱 Plantar semente</button>
+          <button id="waterButton" type="button">💧 Regar planta</button>
+          <button id="refillButton" type="button">🚰 Encher regador</button>
+          <button id="scareBanditsButton" type="button">🛠️ Afastar bandidos (E)</button>
+          <button id="pauseButton" type="button" aria-pressed="false">⏸ Pausar jogo</button>
+        </div>
+      </section>
+
+      <section class="settings-section">
+        <h2>Loja</h2>
+        <div class="settings-actions">
+          <button type="button" data-buy="flower">🌼 Comprar 3 sementes de flores · 12 moedas</button>
+          <button type="button" data-buy="apple">🍎 Comprar 2 sementes de macieira · 30 moedas</button>
+          <button id="wateringCanUpgradeButton" type="button">💧 Aumentar capacidade do regador · 25 moedas</button>
+        </div>
+      </section>
+
+      <section class="settings-section">
+        <h2>Dificuldade</h2>
+        <p class="settings-help">Alcance 60% de reflorestamento para concluir. No modo fácil, a meta passa a 10%.</p>
+        <div class="settings-actions">
+          <button id="easyModeButton" type="button" aria-pressed="false">Modo fácil: desativado</button>
+        </div>
+      </section>
+
+      <section class="settings-section">
+        <h2>Controles do teclado</h2>
+        <div class="key-bindings" id="keyBindings"></div>
+      </section>
+
+      <section class="settings-section">
+        <h2>Acessibilidade</h2>
+        <div class="settings-actions">
+          <button id="textButton" type="button" aria-pressed="false">Aumentar texto</button>
+          <button id="contrastButton" type="button" aria-pressed="false">Alto contraste</button>
+          <button id="calmButton" type="button" aria-pressed="false">Reduzir efeitos visuais</button>
+        </div>
+      </section>
+
+      <section class="settings-section">
+        <h2>Site VerdeVivo</h2>
+        <div class="settings-actions">
+          <a class="settings-link" href="index.html">🏠 Voltar ao site</a>
+        </div>
+      </section>
+    </dialog>
+
+    <dialog class="settings-dialog victory-dialog" id="victoryDialog" aria-labelledby="victoryTitle">
+      <h1 id="victoryTitle">🌳 Floresta restaurada!</h1>
+      <p id="victoryMessage">Você atingiu a meta de reflorestamento e concluiu o jogo.</p>
+      <div class="tutorial-actions">
+        <button id="continueAfterVictoryButton" type="button" class="secondary-button">Continuar explorando</button>
+        <a class="settings-link" href="index.html">Voltar ao site</a>
+      </div>
+    </dialog>
+
+    <div id="announcer" class="sr-only" aria-live="assertive"></div>
+  </main>
+</body>
+</html>
