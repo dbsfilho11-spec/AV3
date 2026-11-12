@@ -21,6 +21,10 @@ html {
   scroll-behavior: smooth;
 }
 
+html.large-text {
+  font-size: 112.5%;
+}
+
 body {
   font-family: "Inter", sans-serif;
   background: var(--bg);
@@ -534,6 +538,262 @@ p {
   border-radius: 24px;
 }
 
+.reflection-panel {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 36px;
+  align-items: center;
+  padding: 36px;
+  background: linear-gradient(135deg, #edf6ea, #f8fbf6);
+  border: 1px solid rgba(19, 90, 50, 0.1);
+  border-radius: 24px;
+}
+
+.reflection-copy h2 {
+  margin-bottom: 16px;
+}
+
+.reflection-prompts {
+  display: grid;
+  gap: 10px;
+  margin-top: 22px;
+  padding-left: 20px;
+  color: var(--primary-dark);
+}
+
+.reflection-form {
+  display: grid;
+  gap: 12px;
+}
+
+.reflection-form label {
+  font-weight: 700;
+  color: var(--primary-dark);
+}
+
+.reflection-form textarea {
+  width: 100%;
+  min-height: 180px;
+  padding: 14px 16px;
+  border: 1px solid rgba(19, 90, 50, 0.18);
+  border-radius: 14px;
+  background: var(--surface);
+  color: var(--text);
+  resize: vertical;
+}
+
+.reflection-form textarea:focus {
+  outline: 3px solid rgba(31, 122, 69, 0.18);
+  border-color: var(--primary);
+}
+
+.reflection-note,
+.reflection-status {
+  font-size: 0.9rem;
+}
+
+.reflection-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.reflection-status {
+  min-height: 1.5em;
+}
+
+.accessibility-toggle {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  z-index: 25;
+  min-height: 48px;
+  padding: 0 18px;
+  border: 2px solid var(--primary-dark);
+  border-radius: 999px;
+  background: var(--primary-dark);
+  color: #fff;
+  font-weight: 700;
+  box-shadow: var(--shadow);
+  cursor: pointer;
+}
+
+.accessibility-dialog {
+  width: min(440px, calc(100vw - 32px));
+  max-height: min(620px, calc(100dvh - 32px));
+  margin: auto;
+  padding: 26px;
+  border: 1px solid rgba(19, 90, 50, 0.18);
+  border-radius: 20px;
+  background: var(--surface);
+  color: var(--text);
+  box-shadow: var(--shadow);
+}
+
+.accessibility-dialog::backdrop {
+  background: rgba(10, 25, 16, 0.62);
+}
+
+.accessibility-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 12px;
+}
+
+.accessibility-header h2 {
+  margin: 0;
+  font-size: 1.6rem;
+}
+
+.accessibility-close {
+  width: 42px;
+  height: 42px;
+  border: 1px solid rgba(19, 90, 50, 0.2);
+  border-radius: 50%;
+  background: var(--surface-alt);
+  color: var(--text);
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.accessibility-options {
+  display: grid;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.accessibility-options button {
+  min-height: 48px;
+  padding: 10px 14px;
+  border: 1px solid rgba(19, 90, 50, 0.18);
+  border-radius: 12px;
+  background: var(--surface-alt);
+  color: var(--text);
+  text-align: left;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.accessibility-options button[aria-pressed="true"] {
+  border-color: var(--primary-dark);
+  background: var(--secondary);
+  box-shadow: inset 4px 0 var(--primary-dark);
+}
+
+.accessibility-options .accessibility-reset {
+  background: transparent;
+  color: var(--primary-dark);
+  text-align: center;
+}
+
+.accessibility-status {
+  min-height: 1.5em;
+  margin-top: 12px;
+  font-size: 0.9rem;
+}
+
+body.high-contrast {
+  --bg: #000;
+  --surface: #111;
+  --surface-alt: #111;
+  --primary: #ffeb3b;
+  --primary-dark: #ffeb3b;
+  --accent: #ffeb3b;
+  --secondary: #222;
+  --text: #fff;
+  --muted: #f2f2f2;
+  --shadow: 0 0 0 1px #fff;
+  background: var(--bg);
+  color: var(--text);
+}
+
+body.high-contrast .site-header,
+body.high-contrast .page-section.light,
+body.high-contrast .about,
+body.high-contrast .hero-stats li,
+body.high-contrast .info-card,
+body.high-contrast .action-card,
+body.high-contrast .feature-card,
+body.high-contrast .step-card,
+body.high-contrast .timeline-item,
+body.high-contrast .contact-card,
+body.high-contrast .contact-form,
+body.high-contrast .info-visual-card,
+body.high-contrast .mission-panel,
+body.high-contrast .quote-box,
+body.high-contrast .cta-panel,
+body.high-contrast .reflection-panel,
+body.high-contrast .accessibility-dialog {
+  border-color: #fff;
+  background: #111;
+  color: #fff;
+}
+
+body.high-contrast .site-header {
+  backdrop-filter: none;
+}
+
+body.high-contrast .site-footer {
+  background: #000;
+  border-top: 1px solid #fff;
+}
+
+body.high-contrast .site-footer p,
+body.high-contrast .site-footer li,
+body.high-contrast .site-footer h3,
+body.high-contrast .site-footer .brand {
+  color: #fff;
+}
+
+body.high-contrast .btn-primary,
+body.high-contrast .accessibility-toggle {
+  border: 2px solid #ffeb3b;
+  background: #ffeb3b;
+  color: #000;
+}
+
+body.high-contrast .btn-secondary,
+body.high-contrast .accessibility-options button,
+body.high-contrast .accessibility-close {
+  border: 1px solid #fff;
+  background: #000;
+  color: #fff;
+}
+
+body.high-contrast .accessibility-options button[aria-pressed="true"] {
+  border-color: #ffeb3b;
+  box-shadow: inset 4px 0 #ffeb3b;
+}
+
+body.high-contrast .accessibility-options .accessibility-reset,
+body.high-contrast .text-link,
+body.high-contrast .main-nav a:hover {
+  color: #ffeb3b;
+}
+
+body.high-contrast input,
+body.high-contrast textarea {
+  border-color: #fff;
+  background: #000;
+  color: #fff;
+}
+
+body.high-contrast :focus-visible {
+  outline: 3px solid #ffeb3b;
+  outline-offset: 3px;
+}
+
+body.reduced-motion *,
+body.reduced-motion *::before,
+body.reduced-motion *::after {
+  scroll-behavior: auto !important;
+  animation-duration: 0.01ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.01ms !important;
+}
+
 .site-footer {
   padding: 40px 0 24px;
   background: #123f2a;
@@ -579,8 +839,13 @@ p {
   .feature-grid,
   .steps-grid,
   .timeline,
-  .image-gallery {
+  .image-gallery,
+  .reflection-panel {
     grid-template-columns: 1fr;
+  }
+
+  .reflection-panel {
+    padding: 28px 22px;
   }
 
   .action-card.large {
@@ -610,4 +875,14 @@ p {
   .hero-stats {
     grid-template-columns: 1fr;
   }
+
+  .accessibility-toggle {
+    right: 12px;
+    bottom: 12px;
+  }
+}
+
+:focus-visible {
+  outline: 3px solid var(--primary-dark);
+  outline-offset: 3px;
 }

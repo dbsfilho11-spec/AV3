@@ -23,7 +23,7 @@
           <a href="sobre.html">Sobre</a>
           <a href="como-ajudar.html">Como ajudar</a>
           <a href="como-plantar.html">Como plantar</a>
-          <a href="jogo.html">Jogo</a>
+          <a href="jogo.html">Operação Florestal</a>
           <a href="contato.html">Contato</a>
         </nav>
 
@@ -95,6 +95,32 @@
               <p>Compartilhe conhecimento e incentive outras pessoas a cuidar do meio ambiente.</p>
             </article>
           </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container reflection-panel">
+          <div class="reflection-copy">
+            <span class="eyebrow">Um momento para refletir</span>
+            <h2>Que relação você quer construir com a natureza?</h2>
+            <p>Pequenas escolhas também começam com uma pausa para pensar. Reflita sobre o que a natureza representa para você e sobre como suas atitudes podem contribuir para um futuro mais verde.</p>
+            <ul class="reflection-prompts">
+              <li>O que no seu bairro você gostaria de ver mais verde?</li>
+              <li>Que hábito sustentável você pode começar nesta semana?</li>
+              <li>Quem você poderia convidar para agir junto?</li>
+            </ul>
+          </div>
+
+          <form class="reflection-form" id="reflection-form">
+            <label for="reflection-note">Minha reflexão ou compromisso</label>
+            <textarea id="reflection-note" name="reflection" maxlength="1000" placeholder="Escreva aqui uma ideia, sentimento ou atitude que você quer colocar em prática..." required></textarea>
+            <p class="reflection-note">Sua reflexão fica salva apenas neste navegador e não é compartilhada.</p>
+            <div class="reflection-actions">
+              <button class="btn btn-primary" type="submit">Salvar reflexão</button>
+              <button class="btn btn-secondary" id="clear-reflection" type="button">Apagar</button>
+            </div>
+            <p class="reflection-status" id="reflection-status" aria-live="polite"></p>
+          </form>
         </div>
       </section>
 
